@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoyalSpin — Play for Fun</title>
+<style>
+:root{--bg:#070b18;--panel:#10182b;--panel2:#141f36;--gold:#ffd12e;--text:#f6f7fb;--muted:#aab5cc;--line:#263653;--green:#20d779}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 75% 0%,#20204c 0,transparent 35%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:3;background:#080d1cf2;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:14px 5%;gap:14px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:900;color:var(--gold)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}
+nav{display:flex;gap:18px;flex-wrap:wrap}a{color:var(--text);text-decoration:none;font-size:14px}.btn{border:0;border-radius:999px;padding:11px 18px;font-weight:800;background:var(--gold);color:#171300;cursor:pointer}.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--gold)}
+.wrap{max-width:1200px;margin:auto;padding:26px 5%}.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:center;background:linear-gradient(120deg,#111c35,#241548);border:1px solid #354267;border-radius:22px;padding:clamp(22px,4vw,46px);overflow:hidden}
+h1{font-size:clamp(32px,5vw,56px);line-height:1.04;margin:0 0 14px}.gold{color:var(--gold)}p{color:var(--muted);line-height:1.65}.hero-art{font-size:clamp(80px,12vw,145px);text-align:center;filter:drop-shadow(0 0 25px #8a4fff)}.notice{margin-top:18px;padding:12px 14px;border:1px solid #725e20;border-radius:12px;background:#28220e;color:#ffe78a;font-size:13px}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}.stat{background:#0c1427;border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:140px}.stat b{display:block;color:var(--gold);font-size:20px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:32px 0 16px}h2{margin:0;font-size:24px}.games{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.game{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center;transition:.2s}.game:hover{transform:translateY(-3px);border-color:var(--gold)}.emoji{font-size:48px;display:block;margin-bottom:10px}.game h3{margin:4px 0}.game p{font-size:12px;margin:4px 0 12px}.play{background:#172440;border:1px solid #3c5074;color:white;border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:700}
+footer{border-top:1px solid var(--line);padding:24px 5%;color:var(--muted);font-size:12px;text-align:center}.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.open{display:flex}.dialog{max-width:430px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}.dialog h2{margin-bottom:8px}.close{float:right;background:transparent;color:white;border:0;font-size:22px;cursor:pointer}.reels{display:flex;gap:8px;justify-content:center;font-size:42px;margin:22px 0;background:#070b18;padding:20px;border-radius:12px}.result{min-height:24px;text-align:center;color:var(--gold);font-weight:800}.small{font-size:12px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{order:-1}.games{grid-template-columns:repeat(2,1fr)}nav{gap:10px}.wrap{padding-top:18px}}
+@media(max-width:390px){.games{grid-template-columns:1fr 1fr}.game{padding:12px}.emoji{font-size:38px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">👑 RoyalSpin <small>PLAY FOR FUN</small></div>
+  <nav><a href="#home">হোম</a><a href="#games">গেমস</a><a href="#about">আমাদের সম্পর্কে</a></nav>
+  <button class="btn secondary" id="accountBtn">প্রোফাইল</button>
+</header>
+<main class="wrap" id="home">
+  <section class="hero">
+    <div>
+      <h1>স্বাগতম <span class="gold">RoyalSpin</span>-এ</h1>
+      <p>মজার ক্যাসিনো-স্টাইল ডেমো গেম খেলো, পয়েন্ট সংগ্রহ করো এবং নিজের স্কোর দেখো। এখানে বাস্তব টাকা ব্যবহার করা হয় না।</p>
+      <div class="stats">
+        <div class="stat">তোমার ভার্চুয়াল পয়েন্ট<b id="balance">1,000</b></div>
+        <div class="stat">মোট গেম খেলা<b id="played">0</b></div>
+      </div>
+      <button class="btn" onclick="document.querySelector('#games').scrollIntoView({behavior:'smooth'})">গেম খেলো ↓</button>
+      <div class="notice">ডেমো মোড: পয়েন্টের কোনো আর্থিক মূল্য নেই। টাকা জমা, বাজি বা টাকা তোলার সুবিধা নেই।</div>
+    </div>
+    <div class="hero-art" aria-hidden="true">🎰🎲✨</div>
+  </section>
+  <section id="games">
+    <div class="section-title"><h2>🎮 ডেমো গেমস</h2><span class="small">শুধু বিনোদনের জন্য</span></div>
+    <div class="games">
+      <article class="game"><span class="emoji">🎰</span><h3>Lucky Slots</h3><p>স্পিন করে মিল খুঁজে দেখো</p><button class="play" onclick="openGame('slots')">খেলো</button></article>
+      <article class="game"><span class="emoji">🎡</span><h3>Lucky Wheel</h3><p>চাকার রঙিন মজা</p><button class="play" onclick="openGame('wheel')">খেলো</button></article>
+      <article class="game"><span class="emoji">🃏</span><h3>Card Match</h3><p>কার্ড মিলিয়ে স্কোর করো</p><button class="play" onclick="openGame('cards')">খেলো</button></article>
+      <article class="game"><span class="emoji">🧩</span><h3>Lucky Pick</h3><p>একটি নম্বর বেছে নাও</p><button class="play" onclick="openGame('pick')">খেলো</button></article>
+    </div>
+  </section>
+  <section id="about">
+    <div class="section-title"><h2>ℹ️ RoyalSpin সম্পর্কে</h2></div>
+    <p>RoyalSpin একটি নমুনা বিনোদনমূলক ওয়েবসাইট। এই ডেমোতে শুধু লোকাল ভার্চুয়াল পয়েন্ট দেখানো হয়। পয়েন্ট কেনা-বেচা, নগদ পুরস্কার বা বাস্তব টাকার জুয়া নেই।</p>
+  </section>
+</main>
+<footer>© 2026 RoyalSpin Demo · Play responsibly · Virtual points have no cash value</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="gameTitle">
+  <div class="dialog">
+    <button class="close" onclick="closeGame()" aria-label="বন্ধ করুন">×</button>
+    <h2 id="gameTitle">ডেমো গেম</h2><p id="gameDesc">শুধু ভার্চুয়াল পয়েন্টের জন্য।</p>
+    <div class="reels" id="reels">🍒 ⭐ 🍋</div>
+    <div class="result" id="result"></div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:18px"><button class="btn" onclick="spin()">আবার খেলো</button><button class="btn secondary" onclick="closeGame()">বন্ধ</button></div>
+  </div>
+</div>
+<script>
+let balance=1000, played=0, current='slots';
+const titles={slots:['Lucky Slots','তিনটি চিহ্ন মেলানোর চেষ্টা করো।'],wheel:['Lucky Wheel','চাকা ঘুরিয়ে একটি রঙিন ফল দেখো।'],cards:['Card Match','তিনটি কার্ড থেকে একটি বেছে নাও।'],pick:['Lucky Pick','একটি নম্বর বেছে নিয়ে ফল দেখো।']};
+function update(){document.getElementById('balance').textContent=balance.toLocaleString('en-US');document.getElementById('played').textContent=played;}
+function openGame(type){current=type;document.getElementById('gameTitle').textContent=titles[type][0];document.getElementById('gameDesc').textContent=titles[type][1];document.getElementById('result').textContent='';document.getElementById('modal').classList.add('open');spin();}
+function closeGame(){document.getElementById('modal').classList.remove('open')}
+function spin(){const symbols=['🍒','⭐','🍋','💎','🔔','🍀','7️⃣'];let out=[];
+ if(current==='wheel'){out=[['🔴','🟡','🟢','🔵'][Math.floor(Math.random()*4)],'🎡','✨'];}
+ else if(current==='cards'){out=['🂠','🂠','🂠'];out[Math.floor(Math.random()*3)]=['🃏','👑','💎'][Math.floor(Math.random()*3)];}
+ else if(current==='pick'){out=[String(Math.ceil(Math.random()*9)),'🎯','❔'];}
+ else{out=[0,1,2].map(()=>symbols[Math.floor(Math.random()*symbols.length)]);}
+ document.getElementById('reels').textContent=out.join('  ');played++;
+ const win=Math.random()<.35; if(win){const prize=25+Math.floor(Math.random()*76);balance+=prize;document.getElementById('result').textContent='ডেমো স্কোর +'+prize+' পয়েন্ট!';}
+ else{balance=Math.max(0,balance-10);document.getElementById('result').textContent='এই রাউন্ডে পয়েন্ট +0 · আবার চেষ্টা করো!';}
+ update();}
+document.getElementById('accountBtn').addEventListener('click',()=>alert('এটি একটি ডেমো প্রোফাইল। বাস্তব অ্যাকাউন্ট বা টাকা লেনদেন চালু নেই।'));
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeGame()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeGame()});
+</script>
+</body>
+</html>
