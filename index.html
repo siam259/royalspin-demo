@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoyalSpin — Play for Fun</title>
+<style>
+:root{--bg:#070b18;--panel:#10182b;--panel2:#171f3d;--gold:#ffd12e;--text:#f6f7fb;--muted:#b7c0d5;--line:#2b3b5c;--green:#23d779}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#282054 0,transparent 36%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:3;background:#080d1cf5;border-bottom:1px solid var(--line);padding:13px 5%;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{font-size:22px;font-weight:900;color:var(--gold)}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}
+nav{display:flex;gap:16px;flex-wrap:wrap}nav a{color:var(--text);text-decoration:none;font-size:14px}
+button{cursor:pointer;font:inherit}.btn{border:0;border-radius:999px;padding:11px 18px;font-weight:800;background:var(--gold);color:#171300}.btn.secondary{background:transparent;color:var(--text);border:1px solid var(--gold)}
+.wrap{max-width:1120px;margin:auto;padding:24px 5%}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center;background:linear-gradient(125deg,#111c35,#241548);border:1px solid #354267;border-radius:22px;padding:clamp(22px,4vw,42px)}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.08;margin:0 0 14px}.gold{color:var(--gold)}p{color:var(--muted);line-height:1.65}.hero-art{text-align:center;font-size:clamp(80px,12vw,140px);filter:drop-shadow(0 0 22px #8a4fff)}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.stat{background:#0c1427;border:1px solid var(--line);border-radius:12px;padding:12px 15px;min-width:145px;color:var(--muted)}.stat b{display:block;color:var(--gold);font-size:22px;margin-top:4px}
+.notice{margin-top:18px;padding:12px 14px;border:1px solid #725e20;border-radius:12px;background:#28220e;color:#ffe78a;font-size:13px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:30px 0 15px}h2{margin:0;font-size:23px}.games{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.game{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;text-align:center}.game:hover{border-color:var(--gold)}.emoji{font-size:46px;display:block;margin-bottom:8px}.game h3{margin:4px 0}.game p{font-size:12px;margin:4px 0 13px}.play{background:#172440;border:1px solid #3c5074;color:white;border-radius:10px;padding:9px 14px;font-weight:700}
+.panel{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.muted{color:var(--muted);font-size:13px}.game-stage{margin-top:18px;background:#080e1d;border:1px solid var(--line);border-radius:15px;padding:20px;text-align:center}.stage-symbols{font-size:clamp(38px,8vw,62px);letter-spacing:6px;margin:12px 0}.result{min-height:26px;color:var(--gold);font-weight:800;margin:10px}.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.choice{background:#172440;border:1px solid #425577;color:white;border-radius:10px;padding:10px 14px}.choice.selected{border-color:var(--gold);background:#352c10}.leaderboard{width:100%;border-collapse:collapse;margin-top:12px}.leaderboard td,.leaderboard th{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.leaderboard th{color:var(--gold);font-size:13px}
+footer{border-top:1px solid var(--line);padding:24px 5%;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{order:-1}.games{grid-template-columns:repeat(2,1fr)}.wrap{padding-top:18px}}
+@media(max-width:390px){.games{grid-template-columns:1fr 1fr}.game{padding:12px}.emoji{font-size:38px}}
+</style>
+</head>
+<body>
+<header><div class="brand">👑 RoyalSpin <small>PLAY FOR FUN</small></div><nav><a href="#home">হোম</a><a href="#games">গেমস</a><a href="#scores">স্কোরবোর্ড</a><a href="#about">সম্পর্কে</a></nav><button class="btn secondary" onclick="showProfile()">প্রোফাইল</button></header>
+<main class="wrap" id="home">
+<section class="hero"><div><h1>স্বাগতম <span class="gold">RoyalSpin</span>-এ</h1><p>মজার ডেমো গেম খেলো, ভার্চুয়াল পয়েন্ট সংগ্রহ করো এবং স্কোরবোর্ডে নিজের অগ্রগতি দেখো।</p>
+<div class="stats"><div class="stat">ভার্চুয়াল পয়েন্ট<b id="balance">1,000</b></div><div class="stat">গেম খেলা হয়েছে<b id="played">0</b></div><div class="stat">সেরা স্কোর<b id="best">0</b></div></div>
+<button class="btn" onclick="document.querySelector('#games').scrollIntoView({behavior:'smooth'})">গেম খেলো ↓</button><div class="notice">শুধু ডেমো: পয়েন্টের কোনো আর্থিক মূল্য নেই। টাকা জমা, বাজি বা টাকা তোলার সুবিধা নেই।</div></div><div class="hero-art" aria-hidden="true">🎰 🎲 ✨</div></section>
+
+<section id="games"><div class="section-title"><h2>🎮 ডেমো গেমস</h2><span class="muted">একটি গেম বেছে নাও</span></div>
+<div class="games">
+<article class="game"><span class="emoji">🎰</span><h3>Lucky Slots</h3><p>তিনটি চিহ্নের মজার মিল</p><button class="play" onclick="selectGame('slots')">খেলো</button></article>
+<article class="game"><span class="emoji">🎡</span><h3>Lucky Wheel</h3><p>চাকা ঘুরিয়ে রঙ দেখো</p><button class="play" onclick="selectGame('wheel')">খেলো</button></article>
+<article class="game"><span class="emoji">🃏</span><h3>Card Match</h3><p>দুটি কার্ড মিলিয়ে দেখো</p><button class="play" onclick="selectGame('cards')">খেলো</button></article>
+<article class="game"><span class="emoji">🔢</span><h3>Number Pick</h3><p>১ থেকে ৬-এর মধ্যে বেছে নাও</p><button class="play" onclick="selectGame('pick')">খেলো</button></article>
+</div></section>
+
+<section class="panel" id="play-area"><div class="panel-head"><div><h2 id="gameTitle">গেম শুরু করো</h2><div class="muted" id="gameDesc">উপরে একটি গেম বেছে নাও।</div></div><span class="muted">খেলার খরচ: ০ পয়েন্ট</span></div>
+<div class="game-stage"><div class="stage-symbols" id="stage">🎮 ✨ 🎮</div><div class="result" id="result" aria-live="polite">তোমার গেম এখানে দেখা যাবে।</div><div class="actions" id="actions"><button class="btn" onclick="selectGame('slots')">Lucky Slots শুরু</button></div></div></section>
+
+<section class="panel" id="scores"><div class="section-title"><h2>🏆 স্কোরবোর্ড</h2><button class="play" onclick="resetScores()">ডেমো স্কোর রিসেট</button></div><p class="muted">এই স্কোর শুধু এই ব্রাউজারে ডেমো হিসেবে রাখা হয়। কোনো বাস্তব পুরস্কার নেই।</p><table class="leaderboard"><thead><tr><th>নাম</th><th>গেম</th><th>স্কোর</th></tr></thead><tbody id="scoreRows"><tr><td>তুমি</td><td>—</td><td>0</td></tr></tbody></table></section>
+<section id="about"><div class="section-title"><h2>ℹ️ RoyalSpin সম্পর্কে</h2></div><p>RoyalSpin একটি বিনোদনমূলক ক্যাসিনো-স্টাইল ডেমো। এখানে বাস্তব টাকা, টাকা লেনদেন বা নগদ পুরস্কার নেই।</p></section>
+</main><footer>© 2026 RoyalSpin Demo · Virtual points have no cash value</footer>
+<script>
+let balance=1000, played=0, best=0, totalScore=0, current='slots', gameName='—';
+const names={slots:'Lucky Slots',wheel:'Lucky Wheel',cards:'Card Match',pick:'Number Pick'};
+const desc={slots:'স্পিন বোতামে চাপ দিয়ে তিনটি চিহ্ন দেখো।',wheel:'চাকা ঘুরিয়ে একটি রঙিন ফল দেখো।',cards:'দুটি কার্ড বেছে নাও—মিললে স্কোর পাবে।',pick:'১ থেকে ৬-এর মধ্যে একটি নম্বর বেছে নাও।'};
+function selectGame(type){current=type;gameName=names[type];document.getElementById('gameTitle').textContent=names[type];document.getElementById('gameDesc').textContent=desc[type];document.getElementById('result').textContent='প্রস্তুত? শুরু করো!';renderActions();document.getElementById('play-area').scrollIntoView({behavior:'smooth',block:'start'});}
+function renderActions(){let a=document.getElementById('actions');if(current==='cards'){a.innerHTML='<button class="choice" onclick="chooseCard(0)">🂠 কার্ড ১</button><button class="choice" onclick="chooseCard(1)">🂠 কার্ড ২</button><button class="choice" onclick="chooseCard(2)">🂠 কার্ড ৩</button>';}else if(current==='pick'){a.innerHTML=[1,2,3,4,5,6].map(n=>'<button class="choice" onclick="pickNumber('+n+')">'+n+'</button>').join('');}else{a.innerHTML='<button class="btn" onclick="playRound()">খেলো</button>';}}
+function award(points,msg){played++;totalScore+=points;best=Math.max(best,totalScore);balance+=points;document.getElementById('result').textContent=msg;update();renderBoard();}
+function playRound(){if(current==='slots'){let s=['🍒','⭐','🍋','💎','🔔','🍀','7️⃣'],r=[0,1,2].map(()=>s[Math.floor(Math.random()*s.length)]);document.getElementById('stage').textContent=r.join('　');let match=(r[0]===r[1]&&r[1]===r[2])?100:(r[0]===r[1]||r[1]===r[2]||r[0]===r[2])?25:5;award(match,'ডেমো স্কোর +'+match+' পয়েন্ট!');}
+else if(current==='wheel'){let opts=[['🔴','লাল'],['🟡','হলুদ'],['🟢','সবুজ'],['🔵','নীল'],['🟣','বেগুনি']];let r=opts[Math.floor(Math.random()*opts.length)];document.getElementById('stage').textContent='🎡　'+r[0]+'　✨';award(10,'চাকা থেমেছে: '+r[1]+'! +১০ পয়েন্ট');}}
+function chooseCard(n){let v=['👑','💎','🍀'];let r=v[Math.floor(Math.random()*3)];document.getElementById('stage').textContent='🃏　'+r+'　🃏';award(15,'কার্ড খোলা হয়েছে! ডেমো স্কোর +১৫ পয়েন্ট।');}
+function pickNumber(n){let r=1+Math.floor(Math.random()*6);document.getElementById('stage').textContent='তুমি: '+n+'　🎯　ফল: '+r;let p=n===r?30:5;award(p,n===r?'মিলে গেছে! +৩০ পয়েন্ট।':'ফল দেখো—অংশ নেওয়ার জন্য +৫ পয়েন্ট।');}
+function update(){document.getElementById('balance').textContent=balance.toLocaleString('en-US');document.getElementById('played').textContent=played;document.getElementById('best').textContent=best;}
+function renderBoard(){document.getElementById('scoreRows').innerHTML='<tr><td>তুমি</td><td>'+gameName+'</td><td>'+totalScore+'</td></tr>';}
+function resetScores(){balance=1000;played=0;best=0;totalScore=0;gameName='—';update();renderBoard();document.getElementById('result').textContent='ডেমো স্কোর রিসেট হয়েছে।';}
+function showProfile(){alert('RoyalSpin ডেমো প্রোফাইল\\nভার্চুয়াল পয়েন্ট: '+balance+'\\nগেম খেলা: '+played+'\\nবাস্তব অ্যাকাউন্ট বা টাকা লেনদেন নেই।');}
+</script></body></html>
